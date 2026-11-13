@@ -1,0 +1,679 @@
+<title>Suryansh Solar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Mukta:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a story told in chapters down one column of sky. Each chapter opens with a left-set headline;
+   the recurring motif is the electricity bill itself (meter digits, units, a 25-year bar drawn to scale). */
+:root {
+  --bg: #F4F7FC;
+  --surface: #FFFFFF;
+  --ink: #0E1E3F;
+  --muted: #50607C;
+  --line: #D6DEEC;
+  --panel: #0B2A6B;
+  --panel-2: #163D8F;
+  --on-panel: #F4F7FC;
+  --on-panel-muted: #BCC9E6;
+  --sun: #FFC21A;
+  --on-sun: #1F1600;
+  --sun-ink: #1746B0;
+  --leaf: #0B7A3B;
+  --on-leaf: #FFFFFF;
+  --gold: #FFD34D;
+  --leaf-soft: #DFF3E4;
+  --sun-soft: #FFEFC2;
+  --display: "Baloo 2", "Noto Sans Devanagari", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Mukta", "Noto Sans Devanagari", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --wrap: 1120px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A1222; --surface: #121D33; --ink: #E9EEF8; --muted: #A3B1CB; --line: #24324D;
+    --panel: #0B2459; --panel-2: #15357A; --on-panel: #F4F7FC; --on-panel-muted: #BCC9E6;
+    --sun: #FFC21A; --on-sun: #1F1600; --sun-ink: #8FB2FF; --leaf: #6FD69A; --on-leaf: #06240F; --gold: #FFD34D;
+    --leaf-soft: #143524; --sun-soft: #3A2E0A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A1222; --surface: #121D33; --ink: #E9EEF8; --muted: #A3B1CB; --line: #24324D;
+  --panel: #0B2459; --panel-2: #15357A; --on-panel: #F4F7FC; --on-panel-muted: #BCC9E6;
+  --sun: #FFC21A; --on-sun: #1F1600; --sun-ink: #8FB2FF; --leaf: #6FD69A; --on-leaf: #06240F; --gold: #FFD34D;
+  --leaf-soft: #143524; --sun-soft: #3A2E0A; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  max-width: var(--wrap); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.band { padding-block: clamp(56px, 9vw, 104px); }
+.band--panel { background: var(--panel); color: var(--on-panel); }
+.band--surface { background: var(--surface); }
+
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.5rem, 7vw, 4.75rem); font-weight: 800; }
+h2 { font-size: clamp(1.9rem, 4.6vw, 3.1rem); font-weight: 700; }
+h3 { font-size: 1.3rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+.chapter { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sun-ink); }
+.band--panel .chapter { color: var(--sun); }
+.lede { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--muted); max-width: 60ch; }
+.band--panel .lede { color: var(--on-panel-muted); }
+.head { display: grid; gap: 16px; margin-bottom: clamp(32px, 5vw, 56px); }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+mark { background: var(--sun); color: var(--on-sun); padding: 0 0.15em; border-radius: 4px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 700 1rem var(--body); text-decoration: none; cursor: pointer;
+  padding: 14px 24px; border-radius: 999px; border: 2px solid transparent;
+  background: var(--sun); color: var(--on-sun); transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--ghost { background: transparent; color: inherit; border-color: currentColor; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
+
+/* Header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 16; background: var(--bg); }
+section[id], #support { scroll-margin-top: 92px; }
+.util { background: var(--panel); color: var(--on-panel); font-size: .88rem; }
+.util .wrap { display: flex; justify-content: space-between; gap: 4px 24px; flex-wrap: wrap; padding-block: 7px; }
+.util p { display: flex; gap: 4px 22px; flex-wrap: wrap; }
+.util a { color: var(--gold); text-decoration: none; font-weight: 600; }
+.util a:hover { text-decoration: underline; }
+.site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 15; background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: 0 8px 20px -16px rgba(0, 0, 0, .4); }
+.site-head-in { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+.brand svg { width: 44px; height: 44px; flex: none; }
+.brand b { display: block; font: 800 1.4rem/1.1 var(--display); }
+.brand small { display: block; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.site-nav { display: flex; align-items: center; gap: 6px 26px; font-weight: 600; font-size: .98rem; }
+.site-nav a:not(.btn) { text-decoration: none; color: var(--ink); padding-block: 6px; border-bottom: 2px solid transparent; }
+.site-nav a:not(.btn):hover { border-bottom-color: var(--sun); }
+.site-nav .btn { padding: 10px 20px; font-size: .95rem; }
+.menu-btn { display: none; font: 700 .95rem var(--body); padding: 9px 18px; border-radius: 999px; border: 2px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
+@media (max-width: 960px) {
+  .menu-btn { display: inline-flex; }
+  .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 0; background: var(--surface); border-bottom: 1px solid var(--line); padding-block: 8px 18px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .site-nav.open { display: flex; }
+  .site-nav a:not(.btn) { padding-block: 13px; border-bottom: 1px solid var(--line); }
+  .site-nav .btn { margin-top: 14px; }
+  .util-mail, .util-links { display: none; }
+}
+
+/* Hero */
+.hero { padding-block: clamp(32px, 6vw, 72px) clamp(56px, 8vw, 96px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.hero-copy { display: grid; gap: 24px; }
+.hero-copy .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-facts { display: flex; gap: 12px 28px; flex-wrap: wrap; font-size: 0.95rem; color: var(--muted); }
+.hero-facts b { color: var(--ink); }
+
+/* The bill */
+.bill {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  padding: 24px; font-family: var(--mono); font-size: 0.9rem; transform: rotate(1.5deg);
+  box-shadow: 0 24px 48px -28px rgba(15, 35, 64, .45);
+}
+.bill header { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 14px; border-bottom: 2px dashed var(--line); color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; }
+.bill dl { display: grid; gap: 10px; padding-block: 16px; }
+.bill dl div { display: flex; justify-content: space-between; gap: 12px; }
+.bill dt { color: var(--muted); }
+.bill dd { font-variant-numeric: tabular-nums; }
+.bill .plus { color: var(--leaf); }
+.bill footer { border-top: 2px dashed var(--line); padding-top: 16px; display: grid; gap: 4px; }
+.bill footer span { color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+.bill .due { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.bill .due s { color: var(--muted); font-size: 1.3rem; }
+.bill .due strong { font: 800 3.4rem/1 var(--display); color: var(--leaf); letter-spacing: -0.03em; }
+.bill small { color: var(--muted); font-size: .72rem; }
+
+/* Chapter 1: the idea */
+.idea { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.idea li { padding: 28px 28px 8px 0; display: grid; gap: 10px; align-content: start; }
+.idea li + li { padding-left: 28px; border-left: 1px solid var(--line); }
+.idea .k { font: 800 2.6rem/1 var(--display); letter-spacing: -0.03em; color: var(--sun-ink); }
+.idea p { color: var(--muted); }
+
+/* 25-year bar */
+.years { display: grid; gap: 14px; }
+.years-bar { display: flex; gap: 4px; min-height: 108px; }
+.years-bar > div { padding: 16px; border-radius: 6px; display: grid; align-content: space-between; gap: 8px; min-width: 0; }
+.y-emi { flex: 5; background: var(--sun); color: var(--on-sun); }
+.y-free { flex: 20; background: var(--leaf-soft); color: var(--ink); border: 1px solid var(--leaf); }
+.years-bar b { font: 700 clamp(1rem, 2.4vw, 1.5rem)/1.1 var(--display); }
+.years-bar span { font-size: .85rem; }
+.years-axis { display: flex; justify-content: space-between; font: .8rem var(--mono); color: var(--on-panel-muted); }
+.years-axis span:nth-child(2) { position: absolute; left: 20%; transform: translateX(-50%); }
+.years-axis { position: relative; }
+.band--panel .y-free { background: var(--panel-2); border-color: transparent; color: var(--on-panel); }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 48px; }
+.flow li { display: grid; gap: 8px; align-content: start; border-top: 2px solid var(--sun); padding-top: 16px; }
+.flow p { color: var(--on-panel-muted); font-size: .98rem; }
+
+/* Stories */
+.stories { display: grid; gap: 20px; }
+.story { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); padding-block: 32px; border-top: 1px solid var(--line); }
+.story-text { display: grid; gap: 12px; align-content: start; }
+.story-text .who { font: .8rem var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.story-text p { color: var(--muted); max-width: 56ch; }
+.story-text p strong { color: var(--ink); }
+.ledger { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; font-size: .95rem; align-self: start; }
+.band--surface .ledger { background: var(--bg); }
+.ledger div { display: flex; justify-content: space-between; gap: 16px; padding-block: 8px; }
+.ledger div + div { border-top: 1px dashed var(--line); }
+.ledger dt { color: var(--muted); }
+.ledger dd { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.ledger .win dt, .ledger .win dd { color: var(--leaf); font-weight: 700; }
+.note { font-size: .85rem; color: var(--muted); max-width: 75ch; }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 28px; counter-reset: step; }
+.steps li { counter-increment: step; display: grid; gap: 8px; align-content: start; }
+.steps li::before { content: counter(step, decimal-leading-zero); font: 500 .85rem var(--mono); color: var(--sun-ink); border-bottom: 2px solid var(--sun); padding-bottom: 10px; margin-bottom: 6px; }
+.steps p { color: var(--muted); font-size: .98rem; }
+
+/* Support */
+.support { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.support article { border: 1px solid var(--line); border-radius: 6px; padding: 28px; display: grid; gap: 14px; align-content: start; background: var(--surface); }
+.support ul { display: grid; gap: 8px; color: var(--muted); }
+.support li { padding-left: 22px; position: relative; }
+.support li::before { content: ""; position: absolute; left: 0; top: .6em; width: 10px; height: 10px; border-radius: 50%; background: var(--sun); }
+
+/* Calculator */
+.calc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.calc-in { display: grid; gap: 24px; }
+.seg { display: inline-flex; border: 2px solid var(--on-panel); border-radius: 999px; padding: 3px; width: fit-content; max-width: 100%; }
+.seg button { font: 600 .95rem var(--body); padding: 9px 18px; border: 0; border-radius: 999px; background: transparent; color: var(--on-panel); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--sun); color: var(--on-sun); }
+.calc label { display: grid; gap: 10px; font-weight: 600; }
+.calc output.big { font: 800 clamp(2.4rem, 6vw, 3.6rem)/1 var(--display); letter-spacing: -0.03em; color: var(--sun); }
+.calc input[type="range"] { width: 100%; accent-color: var(--sun); }
+.calc-out { background: var(--bg); color: var(--ink); border-radius: 6px; padding: 24px; }
+.calc-out .ledger { border: 0; padding: 0; background: transparent; }
+.calc-out h3 { margin-bottom: 8px; }
+.calc-out .note { margin-top: 14px; }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
+.contact-copy { display: grid; gap: 20px; }
+.contact-copy .lines { display: grid; gap: 6px; font-family: var(--mono); user-select: all; }
+form { display: grid; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: clamp(20px, 3vw, 32px); }
+form .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+form label { display: grid; gap: 6px; font-weight: 600; font-size: .92rem; }
+form input, form select { font: 1rem var(--body); padding: 12px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); width: 100%; min-width: 0; }
+form .btn { width: 100%; }
+.status { font-size: .92rem; padding: 12px 14px; border-radius: 6px; background: var(--sun-soft); color: var(--ink); }
+
+.foot { padding-block: 28px; border-top: 1px solid var(--line); font-size: .85rem; color: var(--muted); display: grid; gap: 8px; }
+
+/* Indian look: offer strip, toran border, Hindi taglines, rounder and warmer cards, WhatsApp, call bar */
+h1, h2 { line-height: 1.14; letter-spacing: -0.01em; }
+.strip { background: var(--sun); color: var(--on-sun); font-weight: 700; font-size: .92rem; }
+.strip .wrap { padding-block: 8px; display: flex; gap: 4px 22px; justify-content: center; flex-wrap: wrap; text-align: center; }
+.toran { height: 14px; background:
+  radial-gradient(circle at 12px 0, var(--leaf) 9px, transparent 10px) 0 0 / 24px 14px repeat-x,
+  radial-gradient(circle at 12px 0, var(--sun) 9px, transparent 10px) 12px 0 / 24px 14px repeat-x; }
+.hi { font-family: var(--display); font-weight: 700; font-size: clamp(1.15rem, 2.4vw, 1.5rem); line-height: 1.45; color: var(--sun-ink); }
+.hi--hero { width: fit-content; max-width: 100%; font-weight: 800; font-size: clamp(1.45rem, 3.4vw, 2.2rem); line-height: 1.4; color: var(--gold); background: var(--panel); padding: 12px 22px; border-radius: 14px; box-shadow: 6px 6px 0 var(--sun); }
+.band--panel .hi, .band--panel .chapter, .calc output.big { color: var(--gold); }
+.chapter { font-family: var(--body); font-weight: 700; font-size: .85rem; }
+.hero { background: radial-gradient(circle at 84% 34%, var(--sun-soft) 0 230px, transparent 231px); }
+.trust { display: flex; flex-wrap: wrap; gap: 10px; }
+.trust li { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-weight: 600; font-size: .92rem; display: flex; gap: 8px; align-items: center; }
+.trust li::before { content: "✓"; color: var(--leaf); font-weight: 800; }
+.btn--wa { background: var(--leaf); color: var(--on-leaf); }
+.bill, .ledger, .support article, form, .calc-out, .years-bar > div { border-radius: 16px; }
+form input, form select { border-radius: 10px; }
+.steps li { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+.steps li::before { content: counter(step); width: 44px; height: 44px; border-radius: 50%; border: 0; padding: 0; margin-bottom: 4px; display: grid; place-items: center; background: var(--sun); color: var(--on-sun); font: 800 1.2rem var(--display); }
+.story { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: clamp(20px, 3vw, 36px); }
+.story .ledger { background: var(--bg); }
+.story-text .who { font: 700 .85rem var(--body); letter-spacing: .04em; background: var(--sun-soft); color: var(--ink); padding: 4px 14px; border-radius: 999px; width: fit-content; }
+.scheme { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 64px); align-items: start; }
+.scheme-copy { display: grid; gap: 18px; }
+.scheme-copy p { color: var(--muted); max-width: 58ch; }
+.scheme-copy p strong { color: var(--ink); }
+.points { display: grid; gap: 8px; }
+.points li { padding-left: 26px; position: relative; }
+.points li::before { content: "✓"; position: absolute; left: 0; color: var(--leaf); font-weight: 800; }
+.rate { display: grid; gap: 12px; }
+.rate h3 { font-size: 1.15rem; }
+@media (max-width: 860px) { .scheme { grid-template-columns: minmax(0, 1fr); } }
+.callbar { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; gap: 10px; background: var(--surface); border-top: 1px solid var(--line);
+  padding-top: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.callbar .btn { padding: 12px 10px; font-size: .98rem; }
+@media (max-width: 860px) {
+  .callbar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot { padding-bottom: 96px; }
+  .hero { background: radial-gradient(circle at 100% 0, var(--sun-soft) 0 180px, transparent 181px); }
+}
+
+@media (max-width: 860px) {
+  .hero-grid, .story, .calc, .contact, .support { grid-template-columns: minmax(0, 1fr); }
+  .idea, .steps { grid-template-columns: minmax(0, 1fr); }
+  .idea li, .idea li + li { padding: 22px 0; border-left: 0; }
+  .idea li + li { border-top: 1px solid var(--line); }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bill { transform: none; }
+  .top nav a:not(.btn) { display: none; }
+}
+@media (max-width: 480px) {
+  .flow, form .row { grid-template-columns: minmax(0, 1fr); }
+  .y-emi span { display: none; }
+  .years-bar > div { padding: 12px 10px; }
+}
+</style>
+
+<div class="util" id="top"><div class="wrap">
+  <p><span>Call / WhatsApp: <b>+91 00000 00000</b></span><span>Mon to Sat, 9 am to 7 pm</span><span class="util-mail">hello@suryanshsolar.example</span></p>
+  <p class="util-links"><a href="#support">Customer Support</a><a href="#calculator">Savings Calculator</a></p>
+</div></div>
+
+<header class="site-head"><div class="wrap site-head-in">
+  <a class="brand" href="#top" aria-label="Suryansh Solar, home">
+    <svg viewBox="0 0 44 44" aria-hidden="true">
+      <circle cx="22" cy="18" r="9" fill="var(--sun)"/>
+      <g stroke="var(--sun)" stroke-width="2.5" stroke-linecap="round"><path d="M22 2v4M8 18H4M40 18h-4M10.5 6.5l2.8 2.8M33.5 6.5l-2.8 2.8"/></g>
+      <path d="M3 34 22 20l19 14v6H3z" fill="var(--panel)"/>
+      <path d="M12 33l10-7.4L32 33" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span><b>Suryansh Solar</b><small>Rooftop Solar · Finance · Service</small></span>
+  </a>
+  <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
+    <a href="#math">How It Works</a>
+    <a href="#subsidy">Govt. Subsidy</a>
+    <a href="#stories">Customer Stories</a>
+    <a href="#process">Our Process</a>
+    <a href="#support">Service &amp; Support</a>
+    <a class="btn" href="#contact">Book Free Site Visit</a>
+  </nav>
+</div></header>
+
+<div class="strip"><div class="wrap"><span>Zero Down Payment</span><span>Govt. Subsidy up to ₹78,000 under PM Suryodaya Yojana (PM Surya Ghar)</span><span>25-Year Warranty</span></div></div>
+
+<main>
+  <section class="wrap hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="chapter">Rooftop solar for homes and housing societies</p>
+        <h1>Pay your electricity bill for 5 more years. Then <mark>never again</mark>.</h1>
+        <p class="hi hi--hero" lang="hi">अब छत से बनेगी बिजली, बिल से मिलेगी छुट्टी।</p>
+        <p class="lede">We put a solar plant on your roof with no money down. Our finance partner pays the full cost upfront, the government subsidy cuts the loan, and the money you used to send to the electricity board becomes the EMI. In about five years the plant is yours, debt-free, with a 25-year warranty.</p>
+        <div class="cta">
+          <a class="btn" href="#contact">Book Free Site Visit</a>
+          <a class="btn btn--wa" href="https://wa.me/910000000000">WhatsApp Us</a>
+          <a class="btn btn--ghost" href="#calculator">Calculate My Savings</a>
+        </div>
+        <ul class="trust"><li>₹0 down payment</li><li>100% NBFC finance</li><li>Loan-free in 5 years</li><li>25-year warranty</li><li>Service at your doorstep</li></ul>
+      </div>
+
+      <figure class="bill" aria-label="Sample electricity bill after solar">
+        <header><span>Electricity bill</span><span>3 kW rooftop · Net meter</span></header>
+        <dl>
+          <div><dt>Units used from grid</dt><dd>360 kWh</dd></div>
+          <div><dt>Units your roof exported</dt><dd class="plus">− 360 kWh</dd></div>
+          <div><dt>Net units billed</dt><dd>0 kWh</dd></div>
+        </dl>
+        <footer>
+          <span>Energy charges payable</span>
+          <p class="due"><s>₹2,880</s><strong>₹0</strong></p>
+          <small>Sample bill. Fixed meter charges set by your electricity board still apply.</small>
+        </footer>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band band--surface">
+    <div class="wrap">
+      <div class="head">
+        <p class="chapter">Chapter 1 · The bill that never ends</p>
+        <h2>You are already paying for a solar plant. You just don't own one.</h2>
+        <p class="hi" lang="hi">हर महीने का बिल, सालों का किराया।</p>
+        <p class="lede">A family paying ₹3,000 a month hands over ₹9 lakh to the electricity board across 25 years, even if tariffs never rise. All of it is rent. None of it builds anything on your roof.</p>
+      </div>
+      <ul class="idea">
+        <li><span class="k num">₹9 lakh</span><h3>Paid as rent</h3><p>₹3,000 a month for 25 years at today's tariff. Tariffs usually go up, so the real figure is higher.</p></li>
+        <li><span class="k num">₹1.5 lakh</span><h3>Paid as EMI instead</h3><p>The same family pays roughly ₹2,500 a month for five years, and ends up owning a 3 kW plant.</p></li>
+        <li><span class="k num">₹7 lakh+</span><h3>Stays with you</h3><p>The difference stays in your account. For a society, it stays in the maintenance fund.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band--panel" id="math">
+    <div class="wrap">
+      <div class="head">
+        <p class="chapter">Chapter 2 · How it pays for itself</p>
+        <h2>Your bill becomes the EMI. The subsidy shortens the loan.</h2>
+        <p class="hi" lang="hi">बिल ही बनेगा EMI, 5 साल में प्लांट आपका।</p>
+        <p class="lede">You don't need savings to go solar. You need a roof and an electricity bill. Here is how 25 years look, drawn to scale.</p>
+      </div>
+
+      <div class="years" role="img" aria-label="25-year timeline: years 1 to 5 you pay an EMI about equal to your old bill, years 6 to 25 the electricity is free">
+        <div class="years-bar">
+          <div class="y-emi"><b>EMI ≈ your old bill</b><span>Years 1 to 5</span></div>
+          <div class="y-free"><b>Free electricity from a plant you own</b><span>Years 6 to 25, covered by the 25-year warranty</span></div>
+        </div>
+        <div class="years-axis num"><span>Year 1</span><span>Year 5</span><span>Year 25</span></div>
+      </div>
+
+      <ol class="flow">
+        <li><h3>Our NBFC partner pays 100%</h3><p>The full cost of the plant is financed on day one. You pay nothing to get it installed.</p></li>
+        <li><h3>The subsidy comes in</h3><p>We file your claim under the PM Suryodaya Yojana. When it arrives, it goes straight against the loan.</p></li>
+        <li><h3>Savings cover the EMI</h3><p>The roof makes your power, the bill drops, and that saved money pays the monthly instalment.</p></li>
+        <li><h3>Year 5: it's yours</h3><p>The loan closes. The plant keeps producing for 20 more years, under warranty.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band band--surface" id="subsidy">
+    <div class="wrap">
+      <div class="head">
+        <p class="chapter">Government scheme · PM Suryodaya Yojana</p>
+        <h2>The government pays up to ₹78,000 of your plant. We get it for you.</h2>
+        <p class="hi" lang="hi">प्रधानमंत्री सूर्योदय योजना: सरकार दे रही है ₹78,000 तक की सब्सिडी।</p>
+      </div>
+      <div class="scheme">
+        <div class="scheme-copy">
+          <p>In January 2024 the Prime Minister announced the <strong>Pradhan Mantri Suryodaya Yojana</strong> to put rooftop solar on 1 crore homes. It is now running as <strong>PM Surya Ghar: Muft Bijli Yojana</strong>, and it is built to give a household up to 300 units of free electricity every month.</p>
+          <p>The subsidy is paid straight into your bank account after the plant is installed and inspected. In our finance plan that money goes against your loan, which is why the EMI can stay close to your old bill.</p>
+          <p><strong>The scheme is planned to run through 2026-27.</strong> Applying while it is open is the difference between a ₹1.95 lakh plant and a ₹1.17 lakh one.</p>
+          <h3>What we handle for you</h3>
+          <ul class="points">
+            <li>Registration on the national rooftop solar portal</li>
+            <li>Feasibility approval from your electricity board</li>
+            <li>Net meter application and installation</li>
+            <li>Inspection visit and commissioning report</li>
+            <li>Subsidy claim, tracked until the money is credited</li>
+          </ul>
+        </div>
+        <div class="rate">
+          <h3>Subsidy for homes</h3>
+          <dl class="ledger">
+            <div><dt>1 kW plant (up to 150 units a month)</dt><dd>₹30,000</dd></div>
+            <div><dt>2 kW plant (150 to 300 units a month)</dt><dd>₹60,000</dd></div>
+            <div class="win"><dt>3 kW plant or bigger</dt><dd>₹78,000</dd></div>
+          </dl>
+          <h3>Subsidy for housing societies</h3>
+          <dl class="ledger">
+            <div><dt>Common areas: lifts, pumps, lights, EV charging</dt><dd>₹18,000 / kW</dd></div>
+            <div><dt>Maximum plant size covered</dt><dd>500 kW</dd></div>
+          </dl>
+          <p class="note">Central subsidy slabs as published for the scheme. The final amount is approved by the government after inspection, and some states add their own subsidy on top.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="stories">
+    <div class="wrap">
+      <div class="head">
+        <p class="chapter">Chapter 3 · Three roofs</p>
+        <h2>What this looks like on a real roof.</h2>
+        <p class="hi" lang="hi">आपके जैसे परिवारों की कहानी।</p>
+        <p class="lede">Three typical cases, worked out with the same numbers our calculator uses.</p>
+      </div>
+
+      <div class="stories">
+        <article class="story">
+          <div class="story-text">
+            <p class="who">An independent house · family of five</p>
+            <h3>The Sharmas swapped a ₹3,000 bill for a ₹2,486 EMI.</h3>
+            <p>Two ACs, a geyser, a fridge that never rests. Their summer bills had crossed ₹3,000 and nobody wanted to touch savings for a ₹2 lakh plant. They didn't have to. The NBFC paid for a 3 kW system, the ₹78,000 subsidy cut the loan to ₹1.17 lakh, and the monthly outgo actually went <strong>down</strong> from the first month.</p>
+            <p>In year six the EMI stops. The roof keeps giving them about ₹2,880 worth of electricity every month.</p>
+          </div>
+          <dl class="ledger">
+            <div><dt>Plant size</dt><dd>3 kW</dd></div>
+            <div><dt>Plant cost, financed in full</dt><dd>₹1,95,000</dd></div>
+            <div><dt>Government subsidy</dt><dd>− ₹78,000</dd></div>
+            <div><dt>Loan left to repay</dt><dd>₹1,17,000</dd></div>
+            <div><dt>EMI for 5 years</dt><dd>₹2,486 / month</dd></div>
+            <div><dt>Bill saved</dt><dd>₹2,880 / month</dd></div>
+            <div class="win"><dt>Free power, years 6 to 25</dt><dd>₹6.9 lakh</dd></div>
+          </dl>
+        </article>
+
+        <article class="story">
+          <div class="story-text">
+            <p class="who">A retired couple · 2BHK with terrace rights</p>
+            <h3>The Iyers live on a pension. Their roof now pays one bill for them.</h3>
+            <p>A fixed income and a bill that climbs every year is a bad mix. A 2 kW plant matched their ₹1,900 monthly usage. After the ₹60,000 subsidy, the loan was only ₹70,000, and the EMI came to ₹1,487, which is ₹400 less than the bill it replaced.</p>
+            <p>After five years, that ₹1,900 a month stays in their pension account.</p>
+          </div>
+          <dl class="ledger">
+            <div><dt>Plant size</dt><dd>2 kW</dd></div>
+            <div><dt>Plant cost, financed in full</dt><dd>₹1,30,000</dd></div>
+            <div><dt>Government subsidy</dt><dd>− ₹60,000</dd></div>
+            <div><dt>Loan left to repay</dt><dd>₹70,000</dd></div>
+            <div><dt>EMI for 5 years</dt><dd>₹1,487 / month</dd></div>
+            <div><dt>Bill saved</dt><dd>₹1,900 / month</dd></div>
+            <div class="win"><dt>Free power, years 6 to 25</dt><dd>₹4.5 lakh</dd></div>
+          </dl>
+        </article>
+
+        <article class="story">
+          <div class="story-text">
+            <p class="who">A housing society · 60 flats</p>
+            <h3>Green Meadows stopped raising maintenance to pay for lifts and pumps.</h3>
+            <p>Lifts, water pumps, parking and corridor lights cost the society ₹45,000 a month. The committee could not ask members for ₹22 lakh. With full financing, a 45 kW plant went up on the terrace without a single special collection. The EMI is about ₹30,600, the bill dropped by ₹43,200, and the society was ahead by ₹12,000 in the very first month.</p>
+            <p>Once the loan closes, over ₹5 lakh a year goes back into the maintenance fund.</p>
+          </div>
+          <dl class="ledger">
+            <div><dt>Plant size</dt><dd>45 kW</dd></div>
+            <div><dt>Plant cost, financed in full</dt><dd>₹22,50,000</dd></div>
+            <div><dt>Government subsidy</dt><dd>− ₹8,10,000</dd></div>
+            <div><dt>Loan left to repay</dt><dd>₹14,40,000</dd></div>
+            <div><dt>EMI for 5 years</dt><dd>₹30,596 / month</dd></div>
+            <div><dt>Bill saved</dt><dd>₹43,200 / month</dd></div>
+            <div class="win"><dt>Free power, years 6 to 25</dt><dd>₹1.04 crore</dd></div>
+          </dl>
+        </article>
+      </div>
+      <p class="note">Illustrative examples with representative names. Assumes ₹8 per unit, about 120 units generated per kW each month, a 5-year loan at 10% a year, and current central subsidy slabs. Your survey report will carry your exact figures.</p>
+    </div>
+  </section>
+
+  <section class="band band--surface" id="process">
+    <div class="wrap">
+      <div class="head">
+        <p class="chapter">Chapter 4 · One team, start to finish</p>
+        <h2>You make one phone call. We handle the other six steps.</h2>
+        <p class="hi" lang="hi">सर्वे से सर्विस तक, सब कुछ हम संभालेंगे।</p>
+        <p class="lede">No chasing vendors, bank officers or government portals. One team does all of it and stays with you afterwards.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Site recce</h3><p>An engineer visits your roof, measures usable area, checks shadows, structure and your meter connection. Free, with no obligation.</p></li>
+        <li><h3>Setup suggestion</h3><p>We recommend the plant size, panel layout and inverter that fit your roof and your usage, and explain why.</p></li>
+        <li><h3>Savings calculation</h3><p>A written sheet with your cost, subsidy, EMI and month-by-month savings, so you see the full picture before you sign.</p></li>
+        <li><h3>Installation</h3><p>Our own crew mounts, wires and tests the plant, arranges the net meter with your electricity board and switches it on.</p></li>
+        <li><h3>Subsidy application</h3><p>We file the paperwork on the government portal, follow up on inspection and track the claim until the money is credited.</p></li>
+        <li><h3>After-setup service</h3><p>Monitoring, cleaning guidance, repairs and warranty claims for the life of the plant. This is the step we are known for.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="head">
+        <p class="chapter" id="support">Chapter 5 · After the installers leave</p>
+        <h2>A plant is a 25-year relationship. We act like it.</h2>
+        <p class="hi" lang="hi">लगाने के बाद भी, हम आपके साथ।</p>
+        <p class="lede">Most solar complaints are about the company disappearing after installation. Our customers recommend us for what happens next.</p>
+      </div>
+      <div class="support">
+        <article>
+          <h3>Online support</h3>
+          <ul>
+            <li>Track your plant's generation every day in the app</li>
+            <li>App not syncing or showing odd readings? We fix it remotely</li>
+            <li>Raise a ticket by call, WhatsApp or app, and follow its status</li>
+          </ul>
+        </article>
+        <article>
+          <h3>On-site support</h3>
+          <ul>
+            <li>Power failure or drop in output? A technician comes to your roof</li>
+            <li>Inverter, wiring and panel faults handled under warranty</li>
+            <li>Periodic health checks so small issues don't cost you units</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--panel" id="calculator">
+    <div class="wrap">
+      <div class="head">
+        <p class="chapter">Chapter 6 · Your roof, your numbers</p>
+        <h2>Move the slider to your monthly bill.</h2>
+        <p class="hi" lang="hi">अपनी बचत खुद देखिए।</p>
+      </div>
+      <div class="calc">
+        <div class="calc-in">
+          <div class="seg" role="group" aria-label="Property type">
+            <button type="button" id="type-home" aria-pressed="true">Home</button>
+            <button type="button" id="type-society" aria-pressed="false">Housing society</button>
+          </div>
+          <label for="bill">Monthly electricity bill
+            <output class="big num" id="bill-out" for="bill">₹3,000</output>
+            <input type="range" id="bill" min="1000" max="12000" step="100" value="3000">
+          </label>
+          <p class="lede">An estimate to start the conversation. The site recce gives you the exact plant size and savings sheet.</p>
+        </div>
+        <div class="calc-out" aria-live="polite">
+          <h3 id="c-head">A 3 kW plant fits this bill</h3>
+          <dl class="ledger">
+            <div><dt>Plant cost, financed in full</dt><dd id="c-cost">₹1,95,000</dd></div>
+            <div><dt>Government subsidy</dt><dd id="c-sub">− ₹78,000</dd></div>
+            <div><dt>EMI for 5 years</dt><dd id="c-emi">₹2,486 / month</dd></div>
+            <div><dt>Bill saved</dt><dd id="c-save">₹2,880 / month</dd></div>
+            <div><dt>You pay upfront</dt><dd>₹0</dd></div>
+            <div class="win"><dt>Net gain over 25 years</dt><dd id="c-net">₹7.15 lakh</dd></div>
+          </dl>
+          <p class="note">Assumes ₹8 per unit, 120 units per kW a month, 10% interest over 60 months, flat tariffs, and current subsidy slabs. Actual cost, subsidy and loan terms depend on your roof, state and lender approval.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="contact">
+    <div class="wrap contact">
+      <div class="contact-copy">
+        <p class="chapter">The last chapter is yours</p>
+        <h2>Start with a free site visit.</h2>
+        <p class="hi" lang="hi">आज ही फ्री साइट विज़िट बुक करें।</p>
+        <p class="lede">Share your details and an engineer will call to fix a time. You get a written savings sheet for your roof. If the numbers don't work for you, you owe us nothing.</p>
+        <p class="lines"><span>Call or WhatsApp: +91 00000 00000</span><span>hello@suryanshsolar.example</span><span>Mon to Sat, 9 am to 7 pm</span></p>
+        <p><a class="btn btn--wa" href="https://wa.me/910000000000">Chat on WhatsApp</a></p>
+      </div>
+      <form id="lead" novalidate>
+        <div class="row">
+          <label for="f-name">Your name<input id="f-name" name="name" autocomplete="name" required></label>
+          <label for="f-phone">Mobile number<input id="f-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit number" required></label>
+        </div>
+        <div class="row">
+          <label for="f-city">City / area<input id="f-city" name="city" autocomplete="address-level2" required></label>
+          <label for="f-type">Property<select id="f-type" name="type"><option>Independent house</option><option>Housing society</option><option>Shop or office</option></select></label>
+        </div>
+        <label for="f-bill">Average monthly bill (₹)<input id="f-bill" name="bill" type="number" inputmode="numeric" min="0" placeholder="e.g. 3000"></label>
+        <button class="btn" type="submit">Request my free site visit</button>
+        <p class="status" id="lead-status" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p><strong>Suryansh Solar</strong> · Rooftop solar for homes and housing societies · Survey, design, finance, installation, subsidy and service.</p>
+  <p>Financing is provided by partner NBFCs and is subject to their approval. Subsidy is paid by the government as per the scheme rules in force. Savings shown are estimates.</p>
+</footer>
+
+<div class="callbar">
+  <a class="btn btn--wa" href="https://wa.me/910000000000">WhatsApp Us</a>
+  <a class="btn" href="#contact">Free Site Visit</a>
+</div>
+
+<script>
+(function () {
+  var TARIFF = 8, UNITS_PER_KW = 120, RATE = 0.10 / 12, MONTHS = 60;
+  var mode = 'home';
+  var el = function (id) { return document.getElementById(id); };
+  var inr = function (n) { return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var big = function (n) {
+    if (n >= 1e7) return '₹' + (n / 1e7).toFixed(2) + ' crore';
+    if (n >= 1e5) return '₹' + (n / 1e5).toFixed(2) + ' lakh';
+    return inr(n);
+  };
+
+  function estimate(bill, type) {
+    var units = bill / TARIFF, kw, cost, subsidy;
+    if (type === 'home') {
+      kw = Math.min(10, Math.max(1, Math.round(units / UNITS_PER_KW * 2) / 2));
+      cost = kw * 65000;
+      subsidy = kw <= 2 ? kw * 30000 : Math.min(78000, 60000 + (kw - 2) * 18000);
+    } else {
+      kw = Math.min(500, Math.max(5, Math.round(units / UNITS_PER_KW / 5) * 5));
+      cost = kw * 50000;
+      subsidy = kw * 18000;
+    }
+    var loan = cost - subsidy;
+    var emi = loan * RATE / (1 - Math.pow(1 + RATE, -MONTHS));
+    var save = Math.min(units, kw * UNITS_PER_KW) * TARIFF;
+    return { kw: kw, cost: cost, subsidy: subsidy, emi: emi, save: save, net: save * 12 * 25 - emi * MONTHS };
+  }
+
+  function render() {
+    var bill = +el('bill').value, r = estimate(bill, mode);
+    el('bill-out').textContent = inr(bill);
+    el('c-head').textContent = 'A ' + r.kw + ' kW plant fits this bill';
+    el('c-cost').textContent = inr(r.cost);
+    el('c-sub').textContent = '− ' + inr(r.subsidy);
+    el('c-emi').textContent = inr(r.emi) + ' / month';
+    el('c-save').textContent = inr(r.save) + ' / month';
+    el('c-net').textContent = big(r.net);
+  }
+
+  function setMode(m) {
+    mode = m;
+    var b = el('bill'), home = m === 'home';
+    el('type-home').setAttribute('aria-pressed', String(home));
+    el('type-society').setAttribute('aria-pressed', String(!home));
+    b.min = home ? 1000 : 10000; b.max = home ? 12000 : 200000; b.step = home ? 100 : 1000;
+    b.value = home ? 3000 : 45000;
+    render();
+  }
+
+  /* Header menu (mobile) */
+  var nav = el('site-nav'), menu = el('menu-btn');
+  menu.addEventListener('click', function () {
+    menu.setAttribute('aria-expanded', String(nav.classList.toggle('open')));
+  });
+  nav.addEventListener('click', function (e) {
+    if (e.target.closest('a')) { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }
+  });
+
+  el('bill').addEventListener('input', render);
+  el('type-home').addEventListener('click', function () { setMode('home'); });
+  el('type-society').addEventListener('click', function () { setMode('society'); });
+  render();
+
+  el('lead').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var s = el('lead-status'), phone = el('f-phone').value.replace(/\D/g, '');
+    if (!el('f-name').value.trim() || !el('f-city').value.trim()) s.textContent = 'Please fill in your name and city so our engineer knows who to call and where.';
+    else if (phone.length < 10) s.textContent = 'Please enter a 10-digit mobile number.';
+    else s.textContent = 'This preview form is not connected yet, so nothing was sent. Once it is linked to your CRM or WhatsApp, the visitor will see a confirmation here.';
+    s.hidden = false;
+  });
+})();
+</script>
