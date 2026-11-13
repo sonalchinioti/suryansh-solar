@@ -53,3 +53,12 @@ need updating by hand if the assumptions change.
 - Confirm pricing, loan terms and subsidy figures in `src/utils/solarEstimate.js` and `src/data/content.js`.
 - The customer stories are illustrative, with invented names.
 - Connect the contact form in `src/services/leads.js`. Until then it tells the visitor nothing was sent.
+
+## Deploy (GitHub Pages)
+
+```bash
+npm run deploy
+```
+
+This builds the site and pushes the `dist/` folder to the `gh-pages` branch, which GitHub Pages serves at
+https://sonalchinioti.github.io/suryansh-solar/. The `main` branch holds the source code only.
