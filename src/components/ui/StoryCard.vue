@@ -44,8 +44,8 @@ const rows = computed(() => {
 </template>
 
 <style scoped>
-.story { --bs-card-border-radius: 20px; }
+.story { --bs-card-border-radius: 24px; }
 .story-text { display: grid; gap: 12px; align-content: start; }
-.story-text h3 { margin: 0; }
-.who { font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; background: var(--sun-soft); color: var(--ink); padding: 4px 14px; border-radius: 999px; width: fit-content; }
+.story-text h3 { margin: 0; font-size: clamp(1.25rem, 2.2vw, 1.6rem); letter-spacing: -0.02em; }
+.who { font-weight: 700; font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; background: var(--sun-soft); color: var(--ink); padding: 5px 14px; border-radius: 999px; width: fit-content; }
 </style>

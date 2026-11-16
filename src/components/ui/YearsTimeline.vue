@@ -31,10 +31,10 @@ const life = ASSUMPTIONS.plantLifeYears
 <style scoped>
 .years { display: grid; gap: 14px; }
 .years-bar { display: flex; gap: 4px; min-height: 108px; }
-.years-bar > div { padding: 16px; border-radius: 16px; display: grid; align-content: space-between; gap: 8px; min-width: 0; }
+.years-bar > div { padding: 16px; border-radius: 18px; display: grid; align-content: space-between; gap: 8px; min-width: 0; }
 .y-emi { background: var(--sun); color: var(--on-sun); }
-.y-free { background: var(--panel-2); color: var(--on-panel); }
-.years-bar b { font: 700 clamp(1rem, 2.4vw, 1.5rem) / 1.1 var(--display); }
+.y-free { background: var(--panel-tint); border: 1px solid var(--panel-line); color: var(--on-panel); }
+.years-bar b { font: 700 clamp(0.95rem, 2.2vw, 1.4rem) / 1.15 var(--display); letter-spacing: -0.02em; }
 .years-bar span { font-size: 0.85rem; }
 .years-axis { position: relative; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--on-panel-muted); }
 .years-axis .mid { position: absolute; transform: translateX(-50%); }
