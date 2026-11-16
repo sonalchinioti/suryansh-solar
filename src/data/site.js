@@ -4,11 +4,12 @@ export const site = {
   name: 'Suryansh Solar',
   tagline: 'Rooftop Solar · Finance · Service',
   phone: '+91 00000 00000',
+  phoneHref: 'tel:+910000000000',
   whatsappUrl: 'https://wa.me/910000000000',
   email: 'hello@suryanshsolar.example',
   hours: 'Mon to Sat, 9 am to 7 pm',
   description:
-    'Rooftop solar for homes and housing societies · Survey, design, finance, installation, subsidy and service.',
+    'Rooftop solar for homes and housing societies. Survey, design, finance, installation, subsidy and service from one team.',
   disclaimer:
     'Financing is provided by partner NBFCs and is subject to their approval. Subsidy is paid by the government as per the scheme rules in force. Savings shown are estimates.',
 }
@@ -16,24 +17,34 @@ export const site = {
 // Main menu. `href` points to a section id in App.vue.
 export const navLinks = [
   { label: 'How It Works', href: '#math' },
-  { label: 'Govt. Subsidy', href: '#subsidy' },
-  { label: 'Customer Stories', href: '#stories' },
-  { label: 'Our Process', href: '#process' },
+  { label: 'Calculator', href: '#calculator' },
+  { label: 'Subsidy', href: '#subsidy' },
+  { label: 'Process', href: '#process' },
+  { label: 'Stories', href: '#stories' },
+  { label: 'FAQ', href: '#faq' },
+]
+
+// Extra links shown only in the footer.
+export const footerLinks = [
+  { label: 'Why Suryansh', href: '#why' },
   { label: 'Service & Support', href: '#support' },
+  { label: 'Book a Site Visit', href: '#contact' },
 ]
 
-// Yellow strip under the header.
-export const offers = [
-  'Zero Down Payment',
-  'Govt. Subsidy up to ₹78,000 under PM Suryodaya Yojana (PM Surya Ghar)',
-  '25-Year Warranty',
-]
+// Slim bar above the header.
+export const announcement = {
+  text: 'Govt. subsidy up to ₹78,000 under PM Surya Ghar (PM Suryodaya Yojana). We file it for you.',
+  linkLabel: 'See subsidy slabs',
+  href: '#subsidy',
+}
 
-// Tick-marked pills under the hero buttons.
-export const trustPoints = [
-  '₹0 down payment',
-  '100% NBFC finance',
-  'Loan-free in 5 years',
-  '25-year warranty',
-  'Service at your doorstep',
+// Tick-marked points under the hero buttons.
+export const trustPoints = ['100% NBFC finance', 'Subsidy paperwork handled', 'Service at your doorstep']
+
+// The four headline figures at the bottom of the hero.
+export const heroStats = [
+  { icon: 'rupee', figure: '₹0', label: 'Down payment' },
+  { icon: 'file', figure: '₹78,000', label: 'Maximum home subsidy' },
+  { icon: 'clock', figure: '5 years', label: 'To a loan-free plant' },
+  { icon: 'shield', figure: '25 years', label: 'Warranty and service' },
 ]

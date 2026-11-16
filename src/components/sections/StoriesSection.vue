@@ -1,5 +1,5 @@
 <script setup>
-// Chapter 3: worked examples. Add or edit stories in data/content.js.
+// Worked examples. Add or edit stories in data/content.js.
 import { BContainer } from 'bootstrap-vue-next'
 import SectionHeading from '../ui/SectionHeading.vue'
 import StoryCard from '../ui/StoryCard.vue'
@@ -7,11 +7,11 @@ import { stories } from '../../data/content'
 </script>
 
 <template>
-  <section id="stories" class="band">
+  <section id="stories" class="band band--surface">
     <BContainer>
       <SectionHeading
-        chapter="Chapter 3 · Three roofs"
-        title="What this looks like on a real roof."
+        eyebrow="Worked examples"
+        title="What this looks like on a real roof"
         hindi="आपके जैसे परिवारों की कहानी।"
         lede="Three typical cases, worked out with the same numbers our calculator uses."
       />

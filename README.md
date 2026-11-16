@@ -19,16 +19,17 @@ Needs Node 20.19+ or 22.12+.
 src/
   App.vue                  page assembly: reorder or remove sections here
   main.js                  app start-up, Bootstrap, light/dark theme
+  state.js                 shared state (which property type the calculator shows)
   assets/theme.css         brand colours, Bootstrap overrides, shared styles
   data/
-    site.js                company name, phone, WhatsApp, email, menu, offer strip
-    content.js             text for facts, steps, subsidy rates, stories, support
+    site.js                company name, phone, WhatsApp, email, menu, announcement bar, hero figures
+    content.js             text for audience cards, benefits, system parts, steps, subsidy rates, stories, support, FAQ
   utils/solarEstimate.js   every rupee calculation and its assumptions
   services/leads.js        where the contact form gets connected to a backend
   components/
-    layout/                TopBar, SiteHeader, OfferStrip, SiteFooter, MobileCallBar
-    sections/              one file per page section (Hero, Finance, Subsidy, ...)
-    ui/                    reusable pieces (SectionHeading, LedgerList, StoryCard, ...)
+    layout/                AnnouncementBar, SiteHeader, SiteFooter, MobileCallBar (+ desktop quick-contact dock)
+    sections/              one file per page section (Hero, Segments, Why, Finance, Calculator, ...)
+    ui/                    reusable pieces (SectionHeading, AppIcon, RoofScene, LedgerList, StoryCard, ...)
 ```
 
 ## Common changes
@@ -36,22 +37,25 @@ src/
 | To change | Edit |
 |---|---|
 | Phone, WhatsApp link, email, hours | `src/data/site.js` |
-| Menu links or the yellow offer strip | `src/data/site.js` |
-| A customer story, process step or subsidy rate | `src/data/content.js` |
+| Menu links, the announcement bar or the four hero figures | `src/data/site.js` |
+| An audience card, benefit, system part, customer story, process step, subsidy rate or FAQ | `src/data/content.js` |
 | Tariff, cost per kW, interest rate, loan length | `src/utils/solarEstimate.js` |
 | Colours or fonts | `src/assets/theme.css` (fonts are loaded in `index.html`) |
 | Section order | `src/App.vue` |
 | A section's heading or Hindi tagline | that section's file in `src/components/sections/` |
+| An icon | `src/components/ui/AppIcon.vue` |
+| The hero picture | `src/components/ui/RoofScene.vue` (an illustration; replace with a real installation photo) |
 
 The story breakdown tables and the calculator both use `estimate()` from `solarEstimate.js`, so they
-always agree. The rupee figures written inside the story paragraphs in `content.js` are plain text and
-need updating by hand if the assumptions change.
+always agree. The rupee figures written inside the story paragraphs, the "How it pays for itself" figures
+and the FAQ answers in `content.js` are plain text and need updating by hand if the assumptions change.
 
 ## Before going live
 
 - Replace the placeholder phone number, WhatsApp link and email in `src/data/site.js`.
 - Confirm pricing, loan terms and subsidy figures in `src/utils/solarEstimate.js` and `src/data/content.js`.
 - The customer stories are illustrative, with invented names.
+- The hero uses an illustration. Replace it with photos of real installations when you have them.
 - Connect the contact form in `src/services/leads.js`. Until then it tells the visitor nothing was sent.
 
 ## Deploy (GitHub Pages)

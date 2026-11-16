@@ -1,26 +1,30 @@
 <script setup>
-// Chapter 4: the six-step end-to-end service. Steps come from data/content.js, in order.
-import { BContainer, BRow, BCol, BCard } from 'bootstrap-vue-next'
+// The six-step end-to-end service. Steps come from data/content.js, in order.
+import { BContainer, BRow, BCol } from 'bootstrap-vue-next'
 import SectionHeading from '../ui/SectionHeading.vue'
+import AppIcon from '../ui/AppIcon.vue'
 import { processSteps } from '../../data/content'
 </script>
 
 <template>
-  <section id="process" class="band band--surface">
+  <section id="process" class="band">
     <BContainer>
       <SectionHeading
-        chapter="Chapter 4 · One team, start to finish"
-        title="You make one phone call. We handle the other six steps."
+        center
+        eyebrow="Our process"
+        title="We handle everything. You make one phone call."
         hindi="सर्वे से सर्विस तक, सब कुछ हम संभालेंगे।"
-        lede="No chasing vendors, bank officers or government portals. One team does all of it and stays with you afterwards."
       />
       <BRow tag="ol" class="list-unstyled mb-0 g-4">
         <BCol v-for="(step, i) in processSteps" :key="step.title" tag="li" md="6" lg="4">
-          <BCard class="step h-100">
-            <span class="step-no" aria-hidden="true">{{ i + 1 }}</span>
+          <div class="step">
+            <div class="step-top">
+              <span class="icon-badge"><AppIcon :name="step.icon" :size="24" /></span>
+              <span class="step-no num">Step {{ i + 1 }}</span>
+            </div>
             <h3>{{ step.title }}</h3>
             <p class="text-muted-ink">{{ step.text }}</p>
-          </BCard>
+          </div>
         </BCol>
       </BRow>
     </BContainer>
@@ -28,9 +32,9 @@ import { processSteps } from '../../data/content'
 </template>
 
 <style scoped>
-.step { --bs-card-bg: var(--bg); }
-.step :deep(.card-body) { display: grid; gap: 10px; align-content: start; }
+.step { height: 100%; display: grid; gap: 10px; align-content: start; padding: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.step-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.step-no { font-weight: 800; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-sun); background: var(--sun); padding: 4px 12px; border-radius: 999px; }
 .step h3 { margin: 0; }
-.step p { font-size: 0.98rem; }
-.step-no { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--sun); color: var(--on-sun); font: 800 1.2rem var(--display); }
+.step p { font-size: 0.95rem; }
 </style>

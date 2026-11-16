@@ -1,6 +1,86 @@
 // Copy for the repeating blocks. Edit text here; the components only handle layout.
 
-// Chapter 1: three figures for a ₹3,000 bill.
+// "Solar for" cards under the hero. `mode` opens the calculator on that property type.
+export const segments = [
+  {
+    icon: 'home',
+    title: 'Homes',
+    text: 'Independent houses and flats with terrace rights. Central subsidy up to ₹78,000.',
+    cta: 'Estimate for my home',
+    href: '#calculator',
+    mode: 'home',
+  },
+  {
+    icon: 'building',
+    title: 'Housing societies',
+    text: 'Run lifts, pumps and common lights on solar without a special collection from members.',
+    cta: 'Estimate for my society',
+    href: '#calculator',
+    mode: 'society',
+  },
+  {
+    icon: 'store',
+    title: 'Shops and offices',
+    text: 'Daytime usage is where solar pays best. Ask us for a plan sized to your load.',
+    cta: 'Talk to an engineer',
+    href: '#contact',
+  },
+]
+
+// "Why Suryansh" grid.
+export const benefits = [
+  {
+    icon: 'rupee',
+    title: 'Zero down payment',
+    text: 'Our NBFC partner finances 100% of the plant. The money you used to pay the electricity board becomes the EMI.',
+  },
+  {
+    icon: 'file',
+    title: 'Subsidy, start to finish',
+    text: 'Portal registration, electricity board approval, net meter, inspection and the claim itself. We do all of it.',
+  },
+  {
+    icon: 'panel',
+    title: 'Installed by our own crew',
+    text: 'The same team that surveys your roof mounts, wires and tests the plant, then switches it on.',
+  },
+  {
+    icon: 'wrench',
+    title: 'Service for 25 years',
+    text: 'Monitoring, remote fixes, technician visits and warranty claims for the life of the plant.',
+  },
+]
+
+// "What goes on your roof": the parts of a rooftop plant, in the order the power flows.
+export const systemParts = [
+  {
+    icon: 'panel',
+    title: 'Solar panels',
+    text: 'Turn sunlight into electricity. We size the array to your monthly usage and lay it out around shadows on your roof.',
+  },
+  {
+    icon: 'frame',
+    title: 'Mounting structure',
+    text: 'Holds the panels at the right tilt. An engineer checks your roof structure during the site recce before anything is fixed to it.',
+  },
+  {
+    icon: 'bolt',
+    title: 'Inverter',
+    text: 'Converts the panel output into the power your home runs on. Faults are handled under warranty.',
+  },
+  {
+    icon: 'meter',
+    title: 'Net meter',
+    text: 'Counts the units your roof sends to the grid so they are set off against your bill. We arrange it with your electricity board.',
+  },
+  {
+    icon: 'mobile',
+    title: 'Monitoring app',
+    text: "Shows your plant's generation every day. If the readings look odd, we fix it remotely.",
+  },
+]
+
+// Three figures for a ₹3,000 bill, shown in "How it pays for itself".
 export const billFacts = [
   {
     figure: '₹9 lakh',
@@ -19,7 +99,7 @@ export const billFacts = [
   },
 ]
 
-// Chapter 2: how the financing works.
+// How the financing works.
 export const financeSteps = [
   {
     title: 'Our NBFC partner pays 100%',
@@ -59,7 +139,7 @@ export const subsidy = {
   ],
 }
 
-// Chapter 3: customer stories. ILLUSTRATIVE: names are invented, replace with real customers.
+// Customer stories. ILLUSTRATIVE: names are invented, replace with real customers.
 // The breakdown table beside each story is calculated from `bill` and `type` (see utils/solarEstimate.js).
 // The rupee figures inside `paragraphs` are written by hand: update them if the assumptions change.
 export const stories = [
@@ -95,37 +175,44 @@ export const stories = [
   },
 ]
 
-// Chapter 4: the six-step process, in order.
+// The six-step process, in order.
 export const processSteps = [
   {
+    icon: 'search',
     title: 'Site recce',
     text: 'An engineer visits your roof, measures usable area, checks shadows, structure and your meter connection. Free, with no obligation.',
   },
   {
+    icon: 'panel',
     title: 'Setup suggestion',
     text: 'We recommend the plant size, panel layout and inverter that fit your roof and your usage, and explain why.',
   },
   {
+    icon: 'chart',
     title: 'Savings calculation',
     text: 'A written sheet with your cost, subsidy, EMI and month-by-month savings, so you see the full picture before you sign.',
   },
   {
+    icon: 'bolt',
     title: 'Installation',
     text: 'Our own crew mounts, wires and tests the plant, arranges the net meter with your electricity board and switches it on.',
   },
   {
+    icon: 'file',
     title: 'Subsidy application',
     text: 'We file the paperwork on the government portal, follow up on inspection and track the claim until the money is credited.',
   },
   {
+    icon: 'wrench',
     title: 'After-setup service',
     text: 'Monitoring, cleaning guidance, repairs and warranty claims for the life of the plant. This is the step we are known for.',
   },
 ]
 
-// Chapter 5: after-sales support.
+// After-sales support.
 export const supportChannels = [
   {
+    icon: 'mobile',
     title: 'Online support',
     points: [
       "Track your plant's generation every day in the app",
@@ -134,6 +221,7 @@ export const supportChannels = [
     ],
   },
   {
+    icon: 'wrench',
     title: 'On-site support',
     points: [
       'Power failure or drop in output? A technician comes to your roof',
@@ -144,3 +232,39 @@ export const supportChannels = [
 ]
 
 export const propertyTypes = ['Independent house', 'Housing society', 'Shop or office']
+
+// Frequently asked questions. Keep answers consistent with the figures in utils/solarEstimate.js.
+export const faqs = [
+  {
+    q: 'Do I really pay nothing upfront?',
+    a: 'Yes. Our NBFC partner finances the full cost of the plant on day one, so there is no down payment. The loan is subject to the lender approving your application.',
+  },
+  {
+    q: 'How much subsidy will I get?',
+    a: 'For a home the central subsidy is ₹30,000 for a 1 kW plant, ₹60,000 for 2 kW and ₹78,000 for 3 kW or bigger. Housing societies get ₹18,000 per kW for common areas, up to 500 kW. The final amount is approved by the government after inspection, and some states add their own subsidy on top.',
+  },
+  {
+    q: 'Who handles the subsidy and net meter paperwork?',
+    a: 'We do. That covers registration on the national rooftop solar portal, feasibility approval from your electricity board, the net meter application, the inspection visit and the subsidy claim, tracked until the money is credited.',
+  },
+  {
+    q: 'What will my EMI be?',
+    a: 'It depends on the plant size your bill needs. In our example, a home with a ₹3,000 monthly bill gets a 3 kW plant with an EMI of about ₹2,486 for five years. Use the calculator for your own bill; the site visit gives you the exact figure in writing.',
+  },
+  {
+    q: 'What happens when the loan closes?',
+    a: 'The plant is yours, debt-free. It keeps producing electricity for the rest of its 25-year warranty period, and the money that went to the EMI stays with you.',
+  },
+  {
+    q: 'Will my electricity bill really be zero?',
+    a: 'When your roof generates as many units as you use, the energy charges on the bill net off to zero. Fixed meter charges set by your electricity board still apply.',
+  },
+  {
+    q: 'What if something stops working?',
+    a: 'Call, WhatsApp or raise a ticket in the app. App and reading issues are fixed remotely. For a power failure or a drop in output, a technician comes to your roof, and inverter, wiring and panel faults are handled under warranty.',
+  },
+  {
+    q: 'Is the site visit free?',
+    a: 'Yes, and there is no obligation. An engineer measures your roof, checks shadows, structure and your meter connection, and gives you a written savings sheet.',
+  },
+]
